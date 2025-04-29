@@ -22,17 +22,15 @@ jobs:
           - repository: spring-io/spring-github-workflows
             branch: main
     steps:
-      - name: Checkout repository
+      - name: Checkout repository # setup credentials for push
         uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
-          repository: '${{ matrix.repository }}'
-          branch: '${{ matrix.branch }}'
 
-      - name: add remote and push
+      - name: Sync
         run: |
-          export REMOTE_NAME=remote-to-sync
           export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
-          git remote add "$REMOTE_NAME" 'https://rwinch:${{ secrets.SPRING_CODEQL_PUSH }}@github.com/${{ github.repository }}'
+          export REMOTE_NAME=remote-to-sync
           git checkout -b "$REMOTE_BRANCH"
-          git push "$REMOTE_NAME" "$REMOTE_BRANCH"
+          git remote add "$REMOTE_NAME" `https://github.com/${{ matrix.repository }}`
+          git fetch "$REMOTE_NAME"
+          git checkout -b "$REMOTE_BRANCH" "$REMOTE_NAME/${{ matrix.branch }}"
+          git push origin
