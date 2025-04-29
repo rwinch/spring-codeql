@@ -5,8 +5,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '39 13 * * 4'
-permissions:
-  contents: write
+permissions: read-all
 jobs:
   sync:
     name: Sync (${{ matrix.repo }})
@@ -34,6 +33,6 @@ jobs:
         run: |
           export REMOTE_NAME=remote-to-sync
           export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
-          git remote add "$REMOTE_NAME" 'https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}'
+          git remote add "$REMOTE_NAME" 'https://github-actions:${{ secrets.SPRING_CODEQL_PUSH }}@github.com/${{ github.repository }}'
           git checkout -b "$REMOTE_BRANCH"
           git push "$REMOTE_NAME" "$REMOTE_BRANCH"
