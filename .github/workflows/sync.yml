@@ -32,7 +32,7 @@ jobs:
       - name: add remote and push
         run: |
           export REMOTE_NAME=remote-to-sync
-          export $REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
-          git remote add $REMOTE_NAME ${{ github.event.repository.ssh_url }}
+          export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
+          git remote add "$REMOTE_NAME" '${{ github.event.repository.ssh_url }}'
           git checkout -b "$REMOTE_BRANCH"
           gh push "$REMOTE_NAME" "$REMOTE_BRANCH"
