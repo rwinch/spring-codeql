@@ -30,7 +30,9 @@ jobs:
         run: |
           export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
           export REMOTE_NAME=remote-to-sync
-          git remote add "$REMOTE_NAME" 'https://rwinch:${{ secrets.SPRING_CODEQL_PUSH }}@github.com/${{ matrix.repository }}'
+          export REMOTE_PUSH=remote-to-push
+          git remote add "$REMOTE_NAME" 'https://github.com/${{ matrix.repository }}'
+          git remote add "$REMOTE_PUSH" 'https://rwinch:${{ secrets.SPRING_CODEQL_PUSH }}@github.com/${{ github.repository }}'
           git fetch "$REMOTE_NAME"
           git checkout -B "$REMOTE_BRANCH" "$REMOTE_NAME/${{ matrix.branch }}"
-          git push origin
+          git push "$REMOTE_PUSH"
