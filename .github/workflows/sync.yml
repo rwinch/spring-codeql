@@ -28,7 +28,8 @@ jobs:
 
       - name: Sync
         run: |
-          git remote add push https://${{ secrets.SPRING_CODEQL_PUSH_CLASSIC }}@github.com/rwinch/spring-codeql
+          export GH_TOKEN=${{ secrets.SPRING_CODEQL_PUSH_CLASSIC }}
+          git remote add push https://$GH_TOKEN@github.com/rwinch/spring-codeql
           git remote add external https://github.com/spring-io/spring-github-workflows
           git fetch external main
           git checkout --detach FETCH_HEAD
