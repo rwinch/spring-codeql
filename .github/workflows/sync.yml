@@ -30,7 +30,7 @@ jobs:
           export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
           export REMOTE_NAME=remote-to-sync
           git checkout -b "$REMOTE_BRANCH"
-          git remote add "$REMOTE_NAME" `https://github.com/${{ matrix.repository }}`
+          git remote add "$REMOTE_NAME" 'https://github.com/${{ matrix.repository }}'
           git fetch "$REMOTE_NAME"
           git checkout -b "$REMOTE_BRANCH" "$REMOTE_NAME/${{ matrix.branch }}"
           git push origin
