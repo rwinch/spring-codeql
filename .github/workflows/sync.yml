@@ -28,11 +28,8 @@ jobs:
 
       - name: Sync
         run: |
-          export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
-          export REMOTE_NAME=remote-to-sync
-          export REMOTE_PUSH=remote-to-push
-          git remote add "$REMOTE_NAME" 'https://github.com/${{ matrix.repository }}'
-          git remote add "$REMOTE_PUSH" 'https://${{ secrets.SPRING_CODEQL_PUSH_CLASSIC }}@github.com/${{ github.repository }}'
-          git fetch "$REMOTE_NAME"
-          git checkout -B "$REMOTE_BRANCH" "$REMOTE_NAME/${{ matrix.branch }}"
-          git push "$REMOTE_PUSH"
+          git remote add push https://${{ secrets.SPRING_CODEQL_PUSH_CLASSIC }}@github.com/rwinch/spring-codeql
+          git remote add external https://github.com/spring-io/spring-github-workflows
+          git fetch external main
+          git checkout --detach FETCH_HEAD
+          git push origin HEAD:refs/heads/spring-io/spring-github-workflows/main
