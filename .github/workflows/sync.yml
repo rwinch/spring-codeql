@@ -33,4 +33,4 @@ jobs:
           git remote add external https://github.com/spring-io/spring-github-workflows
           git fetch external main
           git checkout --detach FETCH_HEAD
-          git push origin HEAD:refs/heads/spring-io/spring-github-workflows/main
+          git push push HEAD:refs/heads/spring-io/spring-github-workflows/main
