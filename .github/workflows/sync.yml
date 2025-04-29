@@ -33,8 +33,6 @@ jobs:
         run: |
           export REMOTE_NAME=remote-to-sync
           export REMOTE_BRANCH='${{ matrix.repository }}/${{ matrix.branch }}'
-          git remote add "$REMOTE_NAME" '${{ github.event.repository.ssh_url }}'
+          git remote add "$REMOTE_NAME" 'https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}'
           git checkout -b "$REMOTE_BRANCH"
-          gh repo push "$REMOTE_NAME" "$REMOTE_BRANCH"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push "$REMOTE_NAME" "$REMOTE_BRANCH"
